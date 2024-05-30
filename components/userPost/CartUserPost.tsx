@@ -12,7 +12,7 @@ const CartUserPost = async (): Promise<React.ReactElement> => {
     <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-4">
         {data.map((item) => (
-          <UserPost key={item.id} avatar={item.avatar} username={item.username} content={item.content} email={item.email} likes={item.likes} comments={item.comments} />
+          <UserPost key={item.id} user_id={item.id} avatar={item.avatar} username={item.username} content={item.content} email={item.email} likes={item.likes} comments={item.comments} />
         ))}
       </div>
     </div>

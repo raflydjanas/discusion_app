@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar/Navbar";
 import { usePathname } from "next/navigation";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark, neobrutalism } from "@clerk/themes";
+import { Toaster } from "@/components/ui/shadCnUI/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 const hiddeNavbar = ["/sign-in", "/sign-up", "/chatting/mobile"];
@@ -27,7 +28,10 @@ export default function RootLayout({
       >
         <body className={cn("bg-slate-800 text-white", inter.className)}>
           {!hiddeNavbar.includes(pathname) && <Navbar />}
-          {children}
+          <main>
+            {children}
+            <Toaster />
+          </main>
         </body>
       </ClerkProvider>
     </html>

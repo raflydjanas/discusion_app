@@ -1,52 +1,46 @@
 "use client";
 import { Button } from "@/components/ui/shadCnUI/button";
-import { DataUser, IComments, supabase } from "@/utils/suapbase";
-import { useUser } from "@clerk/nextjs";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { DataUser, supabase } from "@/utils/suapbase";
+import { AiFillLike } from "react-icons/ai";
+import { BiSolidDislike } from "react-icons/bi";
 
-const Likes = ({ likes = 0, user_id, content_id }: IComments) => {
-  const { user } = useUser();
-  const [liked, setLiked] = useState(likes);
-  const [userLiked, setUserLiked] = useState(false);
+import { useState } from "react";
 
-  useEffect(() => {
-    const checkUserLiked = async () => {
-      const { data, error } = await supabase.from("chatting_app").select("content").eq("id", user_id).eq("content", content_id);
-
-      if (error) {
-        console.log("Gagal memriksa apakah pengguna telah melike postingan ini", error);
-      } else {
-        setUserLiked(data.length > 0);
-      }
-    };
-
-    checkUserLiked();
-  }, [content_id, user_id]);
+const Likes = ({ likes, userPost_id }: DataUser) => {
+  const [liked, setLiked] = useState(likes!);
 
   const handleLike = async () => {
-    try {
-      if (!userLiked) {
-        await supabase
-          .from("chatting_app")
-          .update({ likes: liked + 1 })
-          .eq("id", user_id)
-          .eq("content", content_id);
+    const { error } = await supabase
+      .from("chatting_app")
+      .update({ likes: likes! + 1 })
+      .eq("id", userPost_id)
+      .single();
 
-        setUserLiked(true);
-      }
-    } catch (error) {
-      console.error("Gagal memperbarui jumlah like di database:", error);
-    }
+    setLiked(liked + 1);
+    if (error) console.log(error);
+  };
+
+  const handleDisLike = async () => {
+    const { error } = await supabase
+      .from("chatting_app")
+      .update({ likes: likes! <= 0 ? 0 : likes! - 1 })
+      .eq("id", userPost_id)
+      .single();
+
+    setLiked(liked <= 0 ? 0 : liked - 1);
+    if (error) console.log(error);
   };
 
   return (
-    <>
-      <Button className="flex items-center justify-center gap-2" onClick={handleLike}>
-        <Image src={"/icons/like.svg"} alt="like" width={20} height={20} />
-        <p>{liked}</p>
+    <div className="flex items-center justify-center w-[5rem] gap-2">
+      <Button className="" onClick={handleLike}>
+        <AiFillLike size={20} className="text-white" />
       </Button>
-    </>
+      <Button className="" onClick={handleDisLike}>
+        <BiSolidDislike size={20} className="text-white" />
+      </Button>
+      <div className="">{liked}</div>
+    </div>
   );
 };
 

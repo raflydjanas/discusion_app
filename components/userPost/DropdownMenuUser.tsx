@@ -5,14 +5,14 @@ import { DataUser, supabase } from "@/utils/suapbase";
 import AccountOwner from "./DropdownTriger/AccountOwner";
 import NotAccountOwner from "./DropdownTriger/NotAccountOwner";
 
-const DropdownMenuUser = async ({ username, email, user_id }: DataUser) => {
+const DropdownMenuUser = async ({ username, email, userPost_id }: DataUser) => {
   const user = await currentUser();
   const isOwner = user?.username === username || user?.emailAddresses[0].emailAddress === email;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="w-4">{":"}</DropdownMenuTrigger>
-      <DropdownMenuContent>{isOwner ? <AccountOwner user_id={user_id} /> : <NotAccountOwner />}</DropdownMenuContent>
+      <DropdownMenuContent>{isOwner ? <AccountOwner userPost_id={userPost_id} /> : <NotAccountOwner />}</DropdownMenuContent>
     </DropdownMenu>
   );
 };

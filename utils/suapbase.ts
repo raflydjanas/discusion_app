@@ -4,7 +4,7 @@ import { UUID } from "crypto";
 export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.NEXT_PUBLIC_SECRET_KEY as string);
 
 export interface DataUser {
-  user_id?: number;
+  userPost_id?: number;
   content?: string | undefined;
   email?: string | undefined;
   username?: string | null;
@@ -12,10 +12,9 @@ export interface DataUser {
   created_at?: string;
   comments?: Array<IComments>;
   image?: string | undefined;
-  likes?: number | undefined;
+  likes?: number;
 }
 
 export interface IComments extends DataUser {
   comments_id: UUID;
-  content_id: UUID;
 }

@@ -4,6 +4,8 @@ import { DataUser } from "@/utils/suapbase";
 import DropdownMenuUser from "./DropdownMenuUser";
 import Likes from "./interksiUser/Likes";
 import Comments from "./interksiUser/Comments";
+import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 const UserPost = ({ avatar, username, content, email, likes, comments, userPost_id, created_at }: DataUser) => {
   return (
@@ -18,9 +20,11 @@ const UserPost = ({ avatar, username, content, email, likes, comments, userPost_
           <DropdownMenuUser username={username} email={email} userPost_id={userPost_id} />
         </div>
         <i className="text-sm text-slate-400 ">{created_at?.substring(0, 10)}</i>
-        <div className=" w-full lg:w-[30rem] p-3 text-left">
-          <h1 className="overflow-auto text-md text-wrap">{content}</h1>
-        </div>
+        <Link href={`/postDetails/${userPost_id}`}>
+          <div className=" w-full lg:w-[30rem] p-3 text-left">
+            <h1 className="overflow-auto text-md text-wrap">{content}</h1>
+          </div>
+        </Link>
       </div>
       <div className="flex ml-5 items-center justify-start w-[20rem]">
         <div className=" w-[9rem] flex gap-2">

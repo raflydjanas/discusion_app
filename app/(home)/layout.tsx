@@ -17,7 +17,7 @@ const LayoutHome = ({ children }: { children: React.ReactNode }) => {
         <section className="flex min-h-screen flex-1 flex-col lg:px-6 pb-6 lg:mt-[4.5rem] mt-[3.5rem] max-md:pb-14 sm:px-14 w-full ">
           <div className="lg:ml-[35rem] w-full lg:max-w-[50rem]">{children}</div>
         </section>
-        <div className="w-[20rem] border-l border-slate-600 mt-[4.5rem] hidden sm:block p-6">test</div>
+        {/* <div className="w-[20rem] border-l border-slate-600 mt-[4.5rem] hidden sm:block p-6">test</div> */}
       </div>
     </main>
   );

@@ -5,7 +5,6 @@ import DropdownMenuUser from "./DropdownMenuUser";
 import Likes from "./interksiUser/Likes";
 import Comments from "./interksiUser/Comments";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
 
 const UserPost = ({ avatar, username, content, email, likes, comments, userPost_id, created_at }: DataUser) => {
   return (

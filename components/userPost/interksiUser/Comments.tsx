@@ -3,10 +3,12 @@ import { DataUser } from "@/utils/suapbase";
 import Image from "next/image";
 import React, { RefObject, useRef, useState } from "react";
 import { FaCommentMedical } from "react-icons/fa";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/shadCnUI/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/shadCnUI/dialog";
 import { createCommentActions } from "@/actions/createcommnetActions";
+import { useToast } from "@/components/ui/shadCnUI/use-toast";
 
 const Comments = ({ userPost_id, avatar, username, content, email, comments }: DataUser) => {
+  const { toast } = useToast();
   const formRef: RefObject<HTMLFormElement> = useRef<HTMLFormElement>(null);
 
   const resetForm = () => {
@@ -14,6 +16,7 @@ const Comments = ({ userPost_id, avatar, username, content, email, comments }: D
       formRef.current?.reset();
     }, 700);
   };
+
   return (
     <div className="flex items-center justify-center gap-2 ">
       <Dialog>
@@ -37,7 +40,15 @@ const Comments = ({ userPost_id, avatar, username, content, email, comments }: D
               </div>
             </div>
           </DialogHeader>
-          <form className="flex iteems-center gap-4" onSubmit={resetForm} action={createCommentActions} ref={formRef}>
+          <form
+            className="flex iteems-center gap-4"
+            onSubmit={() => {
+              resetForm();
+              toast({ title: "Comment created" });
+            }}
+            action={createCommentActions}
+            ref={formRef}
+          >
             <input type="text" className="text-white bg-transparent py-2 px-3 focus:ring-0 focus:outline-none border-none focus:border-white" placeholder="Enter your comment" name="content" />
             <input type="hidden" value={userPost_id} name="userPost_id" />
             <button type="submit" className="rounded-full p-3">

@@ -15,16 +15,17 @@ const Navbar = () => {
         <h1>Discussion :)</h1>
       </Link>
       <div className="flex items-center gap-2 justify-center">
-        {user ? (
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-        ) : (
-          <Button className="cursor-pointer" onClick={() => push("/sign-in")}>
-            login
-          </Button>
-        )}
-
+        <>
+          {user ? (
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          ) : (
+            <Button className="cursor-pointer" onClick={() => push("/sign-in")}>
+              login
+            </Button>
+          )}
+        </>
         <MobileNav />
       </div>
     </nav>
